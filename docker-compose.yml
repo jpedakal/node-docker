@@ -1,8 +1,17 @@
 version: '3'
 
 services: 
-web:
-container_name: web
-image: node: 14
-volumes: 
-- 
+  web:
+    container_name: web
+    image: node: 14
+    volumes: 
+    - ./web:/usr/src/app
+    working_dir: /usr/src/app
+    restart: on-failure
+    command: "tail -f /dev/null && npm start"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports: 
+      - "7778:8080"
